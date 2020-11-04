@@ -12,10 +12,12 @@ class ValidateIpRESTController implements ContainerInjectableInterface
     public function getJson($ipAddress)
     {
         $curl = curl_init();
-        $url = $this->di->request->getBaseUrl() . "/api?ip=" . $ipAddress;
+        $url = $this->di->request->getBaseUrl() . "/api";
 
         curl_setopt($curl, CURLOPT_URL, $url);
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($curl, CURLOPT_POST, 1);
+        curl_setopt($curl, CURLOPT_POSTFIELDS,"ip=" . $ipAddress);
         $output = curl_exec($curl);
         curl_close($curl);
 
@@ -43,7 +45,7 @@ class ValidateIpRESTController implements ContainerInjectableInterface
     {
         $page = $this->di->get("page");
         $title = "Resultat ip (REST)";
-        $ipAddress = $_GET["ip"];
+        $ipAddress = $_POST["ip"];
 
         $data = [
             "result" => $this->getJson($ipAddress)

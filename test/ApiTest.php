@@ -27,21 +27,28 @@ class ApiTest extends TestCase
 
     public function testIndex()
     {
-        $_GET["ip"] = "127.0.0.1";
+        $_POST["ip"] = "127.0.0.1";
+        $res = $this->controller->indexAction();
+        $this->assertIsArray($res);
+    }
+
+    public function testIndexIp6()
+    {
+        $_POST["ip"] = "2001:0db8:85a3:0000:0000:8a2e:0370:7334";
         $res = $this->controller->indexAction();
         $this->assertIsArray($res);
     }
 
     public function testIndexFail()
     {
-        $_GET["ip"] = "127.hejhejhejehj.0";
+        $_POST["ip"] = "127.hejhejhejehj.0";
         $res = $this->controller->indexAction();
         $this->assertIsArray($res);
     }
 
     public function testIndexNull()
     {
-        $_GET["ip"] = null;
+        $_POST["ip"] = null;
         $res = $this->controller->indexAction();
         $this->assertIsString($res);
     }

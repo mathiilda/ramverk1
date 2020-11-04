@@ -33,14 +33,21 @@ class ValidateIpRestTest extends TestCase
 
     public function testShowResult()
     {
-        $_GET["ip"] = "127.0.0.1";
+        $_POST["ip"] = "127.0.0.1";
+        $res = $this->controller->showResultAction();
+        $this->assertInstanceOf(ResponseUtility::class, $res);
+    }
+
+    public function testShowResultIp6()
+    {
+        $_POST["ip"] = "2001:0db8:85a3:0000:0000:8a2e:0370:7334";
         $res = $this->controller->showResultAction();
         $this->assertInstanceOf(ResponseUtility::class, $res);
     }
 
     public function testShowResultFail()
     {
-        $_GET["ip"] = "127.0.0.1hejhej";
+        $_POST["ip"] = "127.0.0.1hejhej";
         $res = $this->controller->showResultAction();
         $this->assertInstanceOf(ResponseUtility::class, $res);
     }
