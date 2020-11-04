@@ -11,16 +11,16 @@ class ApiController implements ContainerInjectableInterface
 
     public function indexAction()
     {
-        $ip = $_GET["ip"] ?? null;
+        $ipAddress = $_GET["ip"] ?? null;
 
-        if ($ip == null) {
-            return "send ip";
+        if ($ipAddress == null) {
+            return "Det fattas en ip-adress.";
         }
 
-        if (filter_var($ip, FILTER_VALIDATE_IP)) {
+        if (filter_var($ipAddress, FILTER_VALIDATE_IP)) {
             $result = "Ip-adressen ar giltig.";
-            if (gethostbyaddr($ip) != $ip) {
-                $domain = gethostbyaddr($ip);
+            if (gethostbyaddr($ipAddress) != $ipAddress) {
+                $domain = gethostbyaddr($ipAddress);
             }
         } else {
             $result = "Ip-adressen ar inte giltig.";

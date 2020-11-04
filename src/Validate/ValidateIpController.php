@@ -30,13 +30,13 @@ class ValidateIpController implements ContainerInjectableInterface
     {
         $page = $this->di->get("page");
         $title = "Resultat ip";
-        $ip = $_GET["ip"];
+        $ipAddress = $_GET["ip"];
 
 
-        if (filter_var($ip, FILTER_VALIDATE_IP)) {
+        if (filter_var($ipAddress, FILTER_VALIDATE_IP)) {
             $result = "Ip-adressen är giltig.";
-            if (gethostbyaddr($ip) != $ip) {
-                $domain = gethostbyaddr($ip);
+            if (gethostbyaddr($ipAddress) != $ipAddress) {
+                $domain = gethostbyaddr($ipAddress);
             }
         } else {
             $result = "Ip-adressen är inte giltig.";

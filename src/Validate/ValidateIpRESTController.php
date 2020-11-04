@@ -9,9 +9,10 @@ class ValidateIpRESTController implements ContainerInjectableInterface
 {
     use ContainerInjectableTrait;
 
-    public function getJson($ip) {
+    public function getJson($ipAddress)
+    {
         $curl = curl_init();
-        $url = $this->di->request->getBaseUrl() . "/api?ip=" . $ip;
+        $url = $this->di->request->getBaseUrl() . "/api?ip=" . $ipAddress;
 
         curl_setopt($curl, CURLOPT_URL, $url);
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
@@ -42,10 +43,10 @@ class ValidateIpRESTController implements ContainerInjectableInterface
     {
         $page = $this->di->get("page");
         $title = "Resultat ip (REST)";
-        $ip = $_GET["ip"];
+        $ipAddress = $_GET["ip"];
 
         $data = [
-            "result" => $this->getJson($ip)
+            "result" => $this->getJson($ipAddress)
         ];
         
         $page->add("validate/restResult", $data);
