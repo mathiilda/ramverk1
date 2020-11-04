@@ -9,6 +9,18 @@ class ValidateIpRESTController implements ContainerInjectableInterface
 {
     use ContainerInjectableTrait;
 
+    public function getJson($ip) {
+        $curl = curl_init();
+        $url = $this->di->request->getBaseUrl() . "/api?ip=" . $ip;
+
+        curl_setopt($curl, CURLOPT_URL, $url);
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+        $output = curl_exec($curl);
+        curl_close($curl);
+
+        return $output;
+    }
+
     public function indexAction()
     {
         $page = $this->di->get("page");
@@ -17,7 +29,7 @@ class ValidateIpRESTController implements ContainerInjectableInterface
         $data = [
             "heading" => $title,
             "action" => "rest/showResult",
-            "json" => "Svaret kommer att skrivas ut som JSON."
+            "json" => false
         ];
 
         $page->add("validate/index", $data);
@@ -30,21 +42,10 @@ class ValidateIpRESTController implements ContainerInjectableInterface
     {
         $page = $this->di->get("page");
         $title = "Resultat ip (REST)";
-
         $ip = $_GET["ip"];
 
-        if (filter_var($ip, FILTER_VALIDATE_IP)) {
-            $result = "Ip-adressen ar giltig.";
-            if (gethostbyaddr($ip) != $ip) {
-                $domain = gethostbyaddr($ip);
-            }
-        } else {
-            $result = "Ip-adressen ar inte giltig.";
-        }
-
         $data = [
-            "result" => $result,
-            "domain" => $domain ?? ""
+            "result" => $this->getJson($ip)
         ];
         
         $page->add("validate/restResult", $data);

@@ -17,7 +17,7 @@ class ValidateIpController implements ContainerInjectableInterface
         $data = [
             "heading" => $title,
             "action" => "validate/showResult",
-            "json" => null
+            "json" => false
         ];
 
         $page->add("validate/index", $data);
@@ -30,8 +30,8 @@ class ValidateIpController implements ContainerInjectableInterface
     {
         $page = $this->di->get("page");
         $title = "Resultat ip";
-
         $ip = $_GET["ip"];
+
 
         if (filter_var($ip, FILTER_VALIDATE_IP)) {
             $result = "Ip-adressen är giltig.";
@@ -46,6 +46,7 @@ class ValidateIpController implements ContainerInjectableInterface
             "result" => $result,
             "domain" => $domain ?? null
         ];
+
         
         $page->add("validate/result", $data);
         return $page->render([
