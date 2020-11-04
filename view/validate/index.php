@@ -5,7 +5,7 @@
         <input name="ip" type="text">
         <input type="submit" value="Skicka">
     </form>
-    <?php if ($data["json"] = true) : ?>
+    <?php if ($data["json"] == true) : ?>
         <p>Svaret kommer att skrivas ut som JSON. För att hämta svaret anropas routen /api med ip-adressen du anger som parameter. Svaret returneras och skrivs ut på resultat-sidan.</p><br>
         <a href="api?ip=8.8.4.4">Testroute 1: 8.8.4.4</a><br>
         <a href="api?ip=127.0.0.1">Testroute 2: 127.0.0.1</a><br>

@@ -29,7 +29,7 @@ class ValidateIpRESTController implements ContainerInjectableInterface
         $data = [
             "heading" => $title,
             "action" => "rest/showResult",
-            "json" => false
+            "json" => true
         ];
 
         $page->add("validate/index", $data);
