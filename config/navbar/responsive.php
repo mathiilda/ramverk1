@@ -54,5 +54,10 @@ return [
             "url" => "validate",
             "title" => "Validera ip-adresser.",
         ],
+        [
+            "text" => "Validera ip (REST)",
+            "url" => "rest",
+            "title" => "Validera ip-adresser med REST.",
+        ],
     ],
 ];

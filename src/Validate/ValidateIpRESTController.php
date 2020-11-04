@@ -5,19 +5,19 @@ namespace Anax\Validate;
 use Anax\Commons\ContainerInjectableInterface;
 use Anax\Commons\ContainerInjectableTrait;
 
-class ValidateIpController implements ContainerInjectableInterface
+class ValidateIpRESTController implements ContainerInjectableInterface
 {
     use ContainerInjectableTrait;
 
     public function indexAction()
     {
         $page = $this->di->get("page");
-        $title = "Validera ip";
+        $title = "Validera ip (REST)";
 
         $data = [
             "heading" => $title,
-            "action" => "validate/showResult",
-            "json" => null
+            "action" => "rest/showResult",
+            "json" => "Svaret kommer att skrivas ut som JSON."
         ];
 
         $page->add("validate/index", $data);
@@ -29,25 +29,25 @@ class ValidateIpController implements ContainerInjectableInterface
     public function showResultAction()
     {
         $page = $this->di->get("page");
-        $title = "Resultat ip";
+        $title = "Resultat ip (REST)";
 
         $ip = $_GET["ip"];
 
         if (filter_var($ip, FILTER_VALIDATE_IP)) {
-            $result = "Ip-adressen är giltig.";
+            $result = "Ip-adressen ar giltig.";
             if (gethostbyaddr($ip) != $ip) {
                 $domain = gethostbyaddr($ip);
             }
         } else {
-            $result = "Ip-adressen är inte giltig.";
+            $result = "Ip-adressen ar inte giltig.";
         }
 
         $data = [
             "result" => $result,
-            "domain" => $domain ?? null
+            "domain" => $domain ?? ""
         ];
         
-        $page->add("validate/result", $data);
+        $page->add("validate/restResult", $data);
         return $page->render([
             "title" => $title,
         ]);
