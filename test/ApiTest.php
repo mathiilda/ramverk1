@@ -11,9 +11,6 @@ use PHPUnit\Framework\TestCase;
  */
 class ApiTest extends TestCase
 {
-    /**
-     * Just assert something is true.
-     */
     public function setUp()
     {
         global $di;
