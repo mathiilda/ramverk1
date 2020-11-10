@@ -18,7 +18,7 @@ class ValidateIpGeoController implements ContainerInjectableInterface
             "heading" => $title,
             "action" => "geo/showResult",
             "type" => "geo",
-            "placeholder" => $_SERVER['REMOTE_ADDR']
+            "placeholder" => $_SERVER['REMOTE_ADDR'] ?? ""
         ];
 
         $page->add("validate/index", $data);

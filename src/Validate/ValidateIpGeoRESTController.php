@@ -33,7 +33,7 @@ class ValidateIpGeoRESTController implements ContainerInjectableInterface
             "heading" => $title,
             "action" => "geoRest/showResult",
             "type" => "geoRest",
-            "placeholder" => $_SERVER['REMOTE_ADDR'],
+            "placeholder" => $_SERVER['REMOTE_ADDR'] ?? "",
         ];
 
         $page->add("validate/index", $data);
