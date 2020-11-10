@@ -58,5 +58,15 @@ return [
             "url" => "rest",
             "title" => "Validera ip-adresser med REST.",
         ],
+        [
+            "text" => "Geo för ip",
+            "url" => "geo",
+            "title" => "Få geografisk position för ip-adresser.",
+        ],
+        [
+            "text" => "Geo för ip (REST)",
+            "url" => "geoRest",
+            "title" => "Få geografisk position för ip-adresser med REST.",
+        ],
     ],
 ];

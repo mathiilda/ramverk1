@@ -5,14 +5,14 @@ namespace Anax\Validate;
 use Anax\Commons\ContainerInjectableInterface;
 use Anax\Commons\ContainerInjectableTrait;
 
-class ValidateIpRESTController implements ContainerInjectableInterface
+class ValidateIpGeoRESTController implements ContainerInjectableInterface
 {
     use ContainerInjectableTrait;
 
     public function getJson($ipAddress)
     {
         $curl = curl_init();
-        $url = $this->di->request->getBaseUrl() . "/api";
+        $url = $this->di->request->getBaseUrl() . "/apiGeo";
 
         curl_setopt($curl, CURLOPT_URL, $url);
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
@@ -27,12 +27,13 @@ class ValidateIpRESTController implements ContainerInjectableInterface
     public function indexAction()
     {
         $page = $this->di->get("page");
-        $title = "Validera ip (REST)";
+        $title = "Få geografisk position för ip-adress (REST)";
 
         $data = [
             "heading" => $title,
-            "action" => "rest/showResult",
-            "type" => "rest"
+            "action" => "geoRest/showResult",
+            "type" => "geoRest",
+            "placeholder" => $_SERVER['REMOTE_ADDR'],
         ];
 
         $page->add("validate/index", $data);

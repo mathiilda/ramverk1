@@ -5,19 +5,20 @@ namespace Anax\Validate;
 use Anax\Commons\ContainerInjectableInterface;
 use Anax\Commons\ContainerInjectableTrait;
 
-class ValidateIpController implements ContainerInjectableInterface
+class ValidateIpGeoController implements ContainerInjectableInterface
 {
     use ContainerInjectableTrait;
 
     public function indexAction()
     {
         $page = $this->di->get("page");
-        $title = "Validera ip";
+        $title = "Få geografisk position för ip-adress";
 
         $data = [
             "heading" => $title,
-            "action" => "validate/showResult",
-            "type" => null
+            "action" => "geo/showResult",
+            "type" => "geo",
+            "placeholder" => $_SERVER['REMOTE_ADDR']
         ];
 
         $page->add("validate/index", $data);
@@ -31,18 +32,25 @@ class ValidateIpController implements ContainerInjectableInterface
         $page = $this->di->get("page");
         $title = "Resultat ip";
         $ipAddress = $_POST["ip"];
-
+        $geoClass = new Geo();
         $ipClass = new Ip();
+
         $resIp = $ipClass->getIpInfo($ipAddress);
+        $resJson = $geoClass->getGeo($ipAddress);
 
         $data = [
             "ip" => $ipAddress,
             "result" => $resIp[0],
             "type" => $resIp[1],
-            "domain" => $resIp[2]
+            "domain" => $resIp[2],
+            "loc" => $resJson->loc ?? "-",
+            "region" => $resJson->region ?? "-",
+            "city" => $resJson->city ?? "-",
+            "country" => $resJson->country ?? "-",
         ];
 
-        $page->add("validate/result", $data);
+        
+        $page->add("validate/geoResult", $data);
         return $page->render([
             "title" => $title,
         ]);
