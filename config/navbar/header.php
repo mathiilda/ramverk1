@@ -68,5 +68,10 @@ return [
             "url" => "geoRest",
             "title" => "Få geografisk position för ip-adresser med REST.",
         ],
+        [
+            "text" => "Väder",
+            "url" => "weather",
+            "title" => "Få kommande väder men ip-adress/long/lat.",
+        ],
     ],
 ];
