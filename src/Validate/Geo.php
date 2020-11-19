@@ -6,8 +6,12 @@ class Geo
 {
     public function getGeo($ipAddress)
     {
-        $file = "token.txt";
-        $token = file_get_contents($file, FILE_USE_INCLUDE_PATH);
+        try {
+            $file = "token.txt";
+            $token = file_get_contents($file, FILE_USE_INCLUDE_PATH);
+        } catch (Exception $e) {
+            $token = "000000";
+        }
 
         $curl = curl_init();
         $url = "https://ipinfo.io/${ipAddress}/json?token=${token}";
