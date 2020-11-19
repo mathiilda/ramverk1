@@ -48,3 +48,11 @@ html,
 .winstonPic {
     width: 50%;
 }
+
+#map {
+    width: 50%; height: 400px;
+}
+
+.mapContainer {
+    display: flex; justify-content: space-between;
+}

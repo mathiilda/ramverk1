@@ -4,11 +4,18 @@ namespace Anax\Validate;
 
 class Weather
 {
-    public function getWeatherInfo($lon, $lat)
+    public function getWeatherInfo($ipAdress)
     {
+        $geo = new Geo();
+        $res = $geo->getGeo($ipAdress);
+        $latlon = explode(",", $res->loc);
+
+        $lat = $latlon[0];
+        $lon = $latlon[1];
+
         try {
-            $file = "tokenWeather.txt";
-            $token = file_get_contents($file, FILE_USE_INCLUDE_PATH);
+            $keys = require ("../config/keys.php");
+            $token = $keys["weather"];
         } catch (Exception $e) {
             $token = "000000";
         }

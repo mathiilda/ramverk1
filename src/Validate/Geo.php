@@ -7,8 +7,8 @@ class Geo
     public function getGeo($ipAddress)
     {
         try {
-            $file = "token.txt";
-            $token = file_get_contents($file, FILE_USE_INCLUDE_PATH);
+            $keys = require ("../config/keys.php");
+            $token = $keys["geo"];
         } catch (Exception $e) {
             $token = "000000";
         }

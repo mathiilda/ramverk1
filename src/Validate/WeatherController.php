@@ -30,17 +30,24 @@ class WeatherController implements ContainerInjectableInterface
     {
         $page = $this->di->get("page");
         $title = "Resultat väder";
-        $long = $_POST["long"];
-        $lat = $_POST["lat"];
+        $ipAdress = $_POST["ip"];
 
         $weatherClass = new Weather();
-        $resWeather = $weatherClass->getWeatherInfo($long, $lat);
+        $geoClass = new Geo();
 
+        $resWeather = $weatherClass->getWeatherInfo($ipAdress);
+        $resJson = $geoClass->getGeo($ipAdress);
 
-        // var_dump($resWeather->daily);
+        $latlon = explode(",", $resJson->loc);
 
         $data = [
             "forecast" => $resWeather->daily ?? "error",
+            "region" => $resJson->region ?? "-",
+            "city" => $resJson->city ?? "-",
+            "country" => $resJson->country ?? "-",
+            "loc" => $resJson->loc ?? "-",
+            "lat" => $latlon[0] ?? null,
+            "lon" => $latlon[1] ?? null,
         ];
 
         $page->add("validate/weatherResult", $data);
