@@ -6,10 +6,10 @@ class Geo
 {
     public function getGeo($ipAddress)
     {
-        try {
-            $keys = require ("../config/keys.php");
+        if (file_exists("../config/keys.php")) {
+            $keys = require("../config/keys.php");
             $token = $keys["geo"];
-        } catch (Exception $e) {
+        } else {
             $token = "000000";
         }
 

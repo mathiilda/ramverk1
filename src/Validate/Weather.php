@@ -13,10 +13,10 @@ class Weather
         $lat = $latlon[0];
         $lon = $latlon[1];
 
-        try {
-            $keys = require ("../config/keys.php");
+        if (file_exists("../config/keys.php")) {
+            $keys = require("../config/keys.php");
             $token = $keys["weather"];
-        } catch (Exception $e) {
+        } else {
             $token = "000000";
         }
 

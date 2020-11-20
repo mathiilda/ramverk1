@@ -11,7 +11,7 @@
     <h1 class="heading">Resultat</h1>
     <?php if ($data["forecast"] == "error") : ?>
         <p>Vi kunde inte hitta en plats som matchade dina kordinater. Försök igen.</p>
-    <?php else: ?>
+    <?php else : ?>
         <p>Du befinner dig i: <?= $data["city"] . "," . $data["region"] ?>. Dina kordinater är följande: <?= $data["loc"] ?>.</p>
         <div class="mapContainer">
             <table>
@@ -21,7 +21,7 @@
                 </tr>
                 <?php foreach ($data["forecast"] as $day) : ?>
                     <tr>
-                        <td><?= strval(gmdate("Y-m-d",$day->dt)) ?></td>
+                        <td><?= strval(gmdate("Y-m-d", $day->dt)) ?></td>
                         <td><?= strval($day->weather[0]->description) ?></td>
                         <?php $count += 1; ?>
                     </tr>

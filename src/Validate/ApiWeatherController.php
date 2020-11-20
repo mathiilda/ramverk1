@@ -25,7 +25,7 @@ class ApiWeatherController implements ContainerInjectableInterface
         $weatherArray = [];
 
         foreach ($resWeather->daily as $day) {
-            array_push($weatherArray, [gmdate("Y-m-d",$day->dt) => $day->weather[0]->description]);
+            array_push($weatherArray, [gmdate("Y-m-d", $day->dt) => $day->weather[0]->description]);
         };
 
         $json = [
