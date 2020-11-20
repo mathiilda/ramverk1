@@ -16,12 +16,12 @@
         <div class="mapContainer">
             <table>
                 <tr>
-                    <th>Antal dagar från idag</th>
+                    <th>Datum</th>
                     <th>Väder</th>
                 </tr>
                 <?php foreach ($data["forecast"] as $day) : ?>
                     <tr>
-                        <td><?= strval($count) ?></td>
+                        <td><?= strval(gmdate("Y-m-d",$day->dt)) ?></td>
                         <td><?= strval($day->weather[0]->description) ?></td>
                         <?php $count += 1; ?>
                     </tr>

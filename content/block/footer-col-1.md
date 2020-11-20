@@ -1,3 +1,3 @@
 #### Just nu..
 
-..läser jag "An Enchantment of Ravens" av Margaret Rogerson. 
+..läser jag "Cemetery Boys" av Aiden Thomas. 

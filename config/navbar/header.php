@@ -49,29 +49,43 @@ return [
             "title" => "Verktyg och möjligheter för utveckling.",
         ],
         [
-            "text" => "Validera ip",
+            "text" => "REST",
+            "url" => "rest",
+            "title" => "REST-apier.",
+            "submenu" => [
+                "items" => [
+                    [
+                        "text" => "Validera ip (REST)",
+                        "url" => "rest",
+                        "title" => "Validera ip-adresser med REST.",
+                    ],
+                    [
+                        "text" => "Geo för ip (REST)",
+                        "url" => "geoRest",
+                        "title" => "Få geografisk position för ip-adresser med REST.",
+                    ],
+                    [
+                        "text" => "Väder (REST)",
+                        "url" => "weatherRest",
+                        "title" => "Få kommande väder men ip-adress (REST).",
+                    ],
+                ],
+            ],
+        ],
+        [
+            "text" => "Validera Ip",
             "url" => "validate",
             "title" => "Validera ip-adresser.",
         ],
         [
-            "text" => "Validera ip (REST)",
-            "url" => "rest",
-            "title" => "Validera ip-adresser med REST.",
-        ],
-        [
-            "text" => "Geo för ip",
+            "text" => "Geo för Ip",
             "url" => "geo",
             "title" => "Få geografisk position för ip-adresser.",
         ],
         [
-            "text" => "Geo för ip (REST)",
-            "url" => "geoRest",
-            "title" => "Få geografisk position för ip-adresser med REST.",
-        ],
-        [
             "text" => "Väder",
             "url" => "weather",
-            "title" => "Få kommande väder men ip-adress/long/lat.",
+            "title" => "Få kommande väder men ip-adress.",
         ],
     ],
 ];
