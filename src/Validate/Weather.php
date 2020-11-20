@@ -2,9 +2,14 @@
 
 namespace Anax\Validate;
 
-class Weather
+use Anax\Commons\ContainerInjectableInterface;
+use Anax\Commons\ContainerInjectableTrait;
+
+class Weather implements ContainerInjectableInterface
 {
-    public function getWeatherInfo($ipAdress)
+    use ContainerInjectableTrait;
+
+    public function getWeatherInfo($ipAdress) 
     {
         $geo = new Geo();
         $res = $geo->getGeo($ipAdress);

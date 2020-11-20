@@ -32,8 +32,9 @@ class WeatherController implements ContainerInjectableInterface
         $title = "Resultat väder";
         $ipAdress = $_POST["ip"];
 
-        $weatherClass = new Weather();
+        // $weatherClass = new Weather();
         $geoClass = new Geo();
+        $weatherClass = $this->di->get("weather");
 
         $resWeather = $weatherClass->getWeatherInfo($ipAdress);
         $resJson = $geoClass->getGeo($ipAdress);

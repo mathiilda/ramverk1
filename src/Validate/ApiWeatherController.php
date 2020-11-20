@@ -11,7 +11,8 @@ class ApiWeatherController implements ContainerInjectableInterface
 
     public function indexAction()
     {
-        $weatherClass = new Weather();
+        // $weatherClass = new Weather();
+        $weatherClass = $this->di->get("weather");
         $geoClass = new Geo();
         $ipAddress = $_POST["ip"] ?? null;
 
