@@ -35,9 +35,11 @@ class WeatherController implements ContainerInjectableInterface
         $geoClass = new Geo();
         $ipClass = new Ip();
 
+        $resJson = $geoClass->getGeo($ipAdress);
+
         if ($ipClass->getIpInfo($ipAdress)[0] == "Ip-adressen är inte giltig.") {
             $error = true;
-        } else {
+        } else if (isset($resJson->loc)) {
             $weatherClass = $this->di->get("weather");
             $resWeather = $weatherClass->getWeatherInfo($ipAdress);
             $resHistWeather = $weatherClass->getHistoricalWeatherInfo($ipAdress);

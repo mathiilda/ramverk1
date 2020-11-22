@@ -17,31 +17,30 @@ class ApiWeatherController implements ContainerInjectableInterface
         $ipClass = new Ip();
         $ipAddress = $_POST["ip"] ?? null;
 
-
-
-        if ($ipAddress == null || $ipClass->getIpInfo($ipAddress)[0] == "Ip-adressen är inte giltig.") {
-            return "Ip-adressen är felaktig eller så saknas den.";
-        }
-
-        $resWeather = $weatherClass->getWeatherInfo($ipAddress);
-        $resHistWeather = $weatherClass->getHistoricalWeatherInfo($ipAddress);
         $resJson = $geoClass->getGeo($ipAddress);
 
-        $weatherArray = [];
-        $historyArray = [];
-        $resHistoryArray = [];
-        
-        foreach ($resWeather->daily as $day) {
-            array_push($weatherArray, [gmdate("Y-m-d", $day->dt) => $day->weather[0]->description]);
-        };
+        if (isset($resJson->loc)) {
+            $resWeather = $weatherClass->getWeatherInfo($ipAddress);
+            $resHistWeather = $weatherClass->getHistoricalWeatherInfo($ipAddress);
 
-        for ($i=0; $i < 5; $i++) {
-            array_push($historyArray, json_decode($resHistWeather[$i]));
+            $weatherArray = [];
+            $historyArray = [];
+            $resHistoryArray = [];
+
+            foreach ($resWeather->daily as $day) {
+                array_push($weatherArray, [gmdate("Y-m-d", $day->dt) => $day->weather[0]->description]);
+            };
+
+            for ($i=0; $i < 5; $i++) {
+                array_push($historyArray, json_decode($resHistWeather[$i]));
+            }
+
+            foreach ($historyArray as $day) {
+                array_push($resHistoryArray, [gmdate("Y-m-d", $day->current->dt) => $day->current->weather[0]->description]);
+            };
+        } else {
+            return "Vi kunde inte hitta en plats som matchade din ip-adress. Försök igen.";
         }
-
-        foreach ($historyArray as $day) {
-            array_push($resHistoryArray, [gmdate("Y-m-d", $day->current->dt) => $day->current->weather[0]->description]);
-        };
 
         $json = [
             "ip" => $ipAddress,
