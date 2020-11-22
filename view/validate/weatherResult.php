@@ -9,7 +9,7 @@
 
 <article class="article">
     <h1 class="heading">Resultat</h1>
-    <?php if ($data["forecast"] == "error") : ?>
+    <?php if ($data["forecast"] == "error" || $data["historical"] == "error") : ?>
         <p>Vi kunde inte hitta en plats som matchade dina kordinater. Försök igen.</p>
     <?php else : ?>
         <p>Du befinner dig i: <?= $data["city"] . "," . $data["region"] ?>. Dina kordinater är följande: <?= $data["loc"] ?>.</p>
@@ -19,6 +19,13 @@
                     <th>Datum</th>
                     <th>Väder</th>
                 </tr>
+                <?php foreach ($data["historical"] as $day ) : ?>
+                    <tr>
+                        <td><?= strval(gmdate("Y-m-d", $day->current->dt)) ?></td>
+                        <td><?= strval($day->current->weather[0]->description) ?></td>
+                        <?php $count += 1; ?>
+                    </tr>
+                <?php endforeach; ?>
                 <?php foreach ($data["forecast"] as $day) : ?>
                     <tr>
                         <td><?= strval(gmdate("Y-m-d", $day->dt)) ?></td>

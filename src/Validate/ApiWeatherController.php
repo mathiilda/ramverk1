@@ -21,17 +21,29 @@ class ApiWeatherController implements ContainerInjectableInterface
         }
 
         $resWeather = $weatherClass->getWeatherInfo($ipAddress);
+        $resHistWeather = $weatherClass->getHistoricalWeatherInfo($ipAddress);
         $resJson = $geoClass->getGeo($ipAddress);
 
         $weatherArray = [];
-
+        $historyArray = [];
+        $resHistoryArray = [];
+        
         foreach ($resWeather->daily as $day) {
             array_push($weatherArray, [gmdate("Y-m-d", $day->dt) => $day->weather[0]->description]);
         };
 
+        for ($i=0; $i < 5; $i++) {
+            array_push($historyArray, json_decode($resHistWeather[$i]));
+        }
+
+        foreach ($historyArray as $day) {
+            array_push($resHistoryArray, [gmdate("Y-m-d", $day->current->dt) => $day->current->weather[0]->description]);
+        };
+
         $json = [
             "ip" => $ipAddress,
-            "weather" => $weatherArray ?? "-",
+            "history" => $resHistoryArray ?? "-",
+            "forecast" => $weatherArray ?? "-",
             "loc" => $resJson->loc ?? "-",
             "region" => $resJson->region ?? "-",
             "city" => $resJson->city ?? "-",

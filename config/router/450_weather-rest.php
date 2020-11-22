@@ -7,7 +7,7 @@ return [
         [
             "info" => "Get weather (REST).",
             "mount" => "weatherRest",
-            "handler" => "\Anax\Validate\WeatherRestController",
+            "handler" => "\Anax\Validate\WeatherRESTController",
         ],
     ]
 ];

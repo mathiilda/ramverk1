@@ -37,12 +37,19 @@ class WeatherController implements ContainerInjectableInterface
         $weatherClass = $this->di->get("weather");
 
         $resWeather = $weatherClass->getWeatherInfo($ipAdress);
+        $resHistWeather = $weatherClass->getHistoricalWeatherInfo($ipAdress);
         $resJson = $geoClass->getGeo($ipAdress);
+        $newHist = [];
+
+        for ($i=0; $i < 5; $i++) {
+            array_push($newHist, json_decode($resHistWeather[$i]));
+        }
 
         $latlon = explode(",", $resJson->loc);
 
         $data = [
             "forecast" => $resWeather->daily ?? "error",
+            "historical" => $newHist ?? "error",
             "region" => $resJson->region ?? "-",
             "city" => $resJson->city ?? "-",
             "country" => $resJson->country ?? "-",
