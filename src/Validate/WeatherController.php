@@ -32,22 +32,27 @@ class WeatherController implements ContainerInjectableInterface
         $title = "Resultat väder";
         $ipAdress = $_POST["ip"];
 
-        // $weatherClass = new Weather();
         $geoClass = new Geo();
-        $weatherClass = $this->di->get("weather");
+        $ipClass = new Ip();
 
-        $resWeather = $weatherClass->getWeatherInfo($ipAdress);
-        $resHistWeather = $weatherClass->getHistoricalWeatherInfo($ipAdress);
-        $resJson = $geoClass->getGeo($ipAdress);
-        $newHist = [];
+        if ($ipClass->getIpInfo($ipAdress)[0] == "Ip-adressen är inte giltig.") {
+            $error = true;
+        } else {
+            $weatherClass = $this->di->get("weather");
+            $resWeather = $weatherClass->getWeatherInfo($ipAdress);
+            $resHistWeather = $weatherClass->getHistoricalWeatherInfo($ipAdress);
+            $resJson = $geoClass->getGeo($ipAdress);
+            $newHist = [];
 
-        for ($i=0; $i < 5; $i++) {
-            array_push($newHist, json_decode($resHistWeather[$i]));
+            for ($i=0; $i < 5; $i++) {
+                array_push($newHist, json_decode($resHistWeather[$i]));
+            }
+
+            $latlon = explode(",", $resJson->loc);
         }
 
-        $latlon = explode(",", $resJson->loc);
-
         $data = [
+            "error" => $error ?? false,
             "forecast" => $resWeather->daily ?? "error",
             "historical" => $newHist ?? "error",
             "region" => $resJson->region ?? "-",

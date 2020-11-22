@@ -9,7 +9,7 @@ use PHPUnit\Framework\TestCase;
 /**
  * Test features from kmom01.
  */
-class WeatherTest extends TestCase
+class ApiWeatherTest extends TestCase
 {
     public function setUp()
     {
@@ -18,20 +18,21 @@ class WeatherTest extends TestCase
         $di = new DIMagic();
         $di->loadServices("config/di");
 
-        $this->controller = new WeatherController();
+        $this->controller = new ApiWeatherController();
         $this->controller->setDi($di);
     }
 
     public function testIndex()
     {
+        $_POST["ip"] = "8.8.8.8";
         $res = $this->controller->indexAction();
-        $this->assertInstanceOf(ResponseUtility::class, $res);
+        $this->assertIsArray($res);
     }
 
-    public function testShowResult()
+    public function testIndexNull()
     {
-        $_POST["ip"] = "8.8.8.8";
-        $res = $this->controller->showResultAction();
-        $this->assertInstanceOf(ResponseUtility::class, $res);
+        $_POST["ip"] = null;
+        $res = $this->controller->indexAction();
+        $this->assertIsString($res);
     }
 }

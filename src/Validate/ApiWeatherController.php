@@ -14,10 +14,13 @@ class ApiWeatherController implements ContainerInjectableInterface
         // $weatherClass = new Weather();
         $weatherClass = $this->di->get("weather");
         $geoClass = new Geo();
+        $ipClass = new Ip();
         $ipAddress = $_POST["ip"] ?? null;
 
-        if ($ipAddress == null) {
-            return "Det fattas en ip-adress.";
+
+
+        if ($ipAddress == null || $ipClass->getIpInfo($ipAddress)[0] == "Ip-adressen är inte giltig.") {
+            return "Ip-adressen är felaktig eller så saknas den.";
         }
 
         $resWeather = $weatherClass->getWeatherInfo($ipAddress);

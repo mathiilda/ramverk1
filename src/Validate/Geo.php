@@ -10,7 +10,7 @@ class Geo
             $keys = require("../config/keys.php");
             $token = $keys["geo"];
         } else {
-            $token = "000000";
+            $token = file_get_contents("token.txt", FILE_USE_INCLUDE_PATH);
         }
 
         $curl = curl_init();
