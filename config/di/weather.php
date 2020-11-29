@@ -9,7 +9,7 @@ return [
         "weather" => [
             "shared" => true,
             "callback" => function () {
-                $obj = new \Anax\Validate\Weather();
+                $obj = new \mabw\Validate\Weather();
                 $obj->setDi($this);
                 return $obj;
             }

@@ -1,8 +1,8 @@
 <?php
 
-namespace mabw\Validate;
+namespace Anax\Validate;
 
-class Geo
+class GeoA
 {
     public function getGeo($ipAddress)
     {

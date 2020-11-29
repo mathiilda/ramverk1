@@ -12,7 +12,7 @@ class ApiGeoController implements ContainerInjectableInterface
     public function indexAction()
     {
         $ipClass = new Ip();
-        $geoClass = new Geo();
+        $geoClass = new GeoA();
         $ipAddress = $_POST["ip"] ?? null;
 
         if ($ipAddress == null) {

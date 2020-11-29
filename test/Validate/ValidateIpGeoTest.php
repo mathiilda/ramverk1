@@ -31,6 +31,7 @@ class ValidateIpGeoTest extends TestCase
     public function testShowResult()
     {
         $_POST["ip"] = "127.0.0.1";
+        $_POST["test"] = true;
         $res = $this->controller->showResultAction();
         $this->assertInstanceOf(ResponseUtility::class, $res);
     }
@@ -38,6 +39,7 @@ class ValidateIpGeoTest extends TestCase
     public function testShowResultIp6()
     {
         $_POST["ip"] = "2001:0db8:85a3:0000:0000:8a2e:0370:7334";
+        $_POST["test"] = true;
         $res = $this->controller->showResultAction();
         $this->assertInstanceOf(ResponseUtility::class, $res);
     }
@@ -45,6 +47,7 @@ class ValidateIpGeoTest extends TestCase
     public function testShowResultFail()
     {
         $_POST["ip"] = "127.0.0.1hejhej";
+        $_POST["test"] = true;
         $res = $this->controller->showResultAction();
         $this->assertInstanceOf(ResponseUtility::class, $res);
     }

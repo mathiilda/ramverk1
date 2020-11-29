@@ -32,7 +32,7 @@ class ValidateIpGeoController implements ContainerInjectableInterface
         $page = $this->di->get("page");
         $title = "Resultat ip";
         $ipAddress = $_POST["ip"];
-        $geoClass = new Geo();
+        $geoClass = new GeoA();
         $ipClass = new Ip();
 
         $resIp = $ipClass->getIpInfo($ipAddress);
