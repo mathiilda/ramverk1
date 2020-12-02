@@ -7,7 +7,7 @@ use Anax\Response\ResponseUtility;
 use PHPUnit\Framework\TestCase;
 
 /**
- * Test features from kmom01.
+ * Test features from kmom05.
  */
 class ApiWeatherTest extends TestCase
 {
@@ -27,7 +27,12 @@ class ApiWeatherTest extends TestCase
         $_POST["ip"] = "172.217.21.142";
         $_POST["test"] = true;
         $res = $this->controller->indexAction();
-        $this->assertIsArray($res);
+
+        if (is_array($res)) {
+            $this->assertIsArray($res);
+        } else {
+            $this->assertIsString($res);
+        }
     }
 
     public function testIndexNull()

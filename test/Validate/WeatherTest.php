@@ -7,7 +7,7 @@ use Anax\Response\ResponseUtility;
 use PHPUnit\Framework\TestCase;
 
 /**
- * Test features from kmom01.
+ * Test features from kmom05.
  */
 class WeatherTest extends TestCase
 {
@@ -31,6 +31,14 @@ class WeatherTest extends TestCase
     public function testShowResult()
     {
         $_POST["ip"] = "8.8.8.8";
+        $_POST["test"] = true;
+        $res = $this->controller->showResultAction();
+        $this->assertInstanceOf(ResponseUtility::class, $res);
+    }
+
+    public function testShowResultIp6()
+    {
+        $_POST["ip"] = "2001:4860:4860::8888";
         $_POST["test"] = true;
         $res = $this->controller->showResultAction();
         $this->assertInstanceOf(ResponseUtility::class, $res);
