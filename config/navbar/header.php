@@ -87,5 +87,10 @@ return [
             "url" => "weather",
             "title" => "Få kommande väder men ip-adress.",
         ],
+        [
+            "text" => "Book",
+            "url" => "book",
+            "title" => "CRUD bok-databas",
+        ],
     ],
 ];
